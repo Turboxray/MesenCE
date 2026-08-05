@@ -61,6 +61,7 @@ PceMemoryManager::PceMemoryManager(Emulator* emu, PceConsole* console, PceVpc* v
 		_expansionRamSize = 0x60 * 0x2000;
 		_expansionRam = new uint8_t[_expansionRamSize];
 		_console->InitializeRam(_expansionRam, _expansionRamSize);
+		_emu->RegisterMemory(MemoryType::PceExpansionRam, _expansionRam, _expansionRamSize);
 	}
 
 	_emu->RegisterMemory(MemoryType::PcePrgRom, _prgRom, _prgRomSize);
@@ -160,11 +161,9 @@ void PceMemoryManager::UpdateMappings(uint32_t bankOffsets[8])
 	if(_expansionRam) {
 		for(int i = 0x90; i <= 0xEF; i++) {
 			//90-EF: optional expansion RAM (unmapped on stock hardware).
-			//MemoryType::None keeps the debugger's absolute-address mapping
-			//honest until the region gets a dedicated memory type.
 			_readBanks[i] = _expansionRam + ((i - 0x90) * 0x2000);
 			_writeBanks[i] = _expansionRam + ((i - 0x90) * 0x2000);
-			_bankMemType[i] = MemoryType::None;
+			_bankMemType[i] = MemoryType::PceExpansionRam;
 		}
 	}
 
@@ -418,6 +417,7 @@ AddressInfo PceMemoryManager::GetAbsoluteAddress(uint32_t relAddr)
 			break;
 		case MemoryType::PceCdromRam: absAddr = (uint32_t)(_readBanks[bank] - _cdromRam) + (relAddr & 0x1FFF); break;
 		case MemoryType::PceCardRam: absAddr = (uint32_t)(_readBanks[bank] - _cardRam) + (relAddr & 0x1FFF); break;
+		case MemoryType::PceExpansionRam: absAddr = (uint32_t)(_readBanks[bank] - _expansionRam) + (relAddr & 0x1FFF); break;
 		default: return { -1, MemoryType::None };
 	}
 	return { (int32_t)absAddr, _bankMemType[bank] };

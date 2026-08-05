@@ -365,6 +365,7 @@ namespace Mesen.Debugger.ViewModels
 				{ MemoryType.PceSaveRam, Color.FromRgb(0xCD, 0xDC, 0xFA) },
 				{ MemoryType.PceCdromRam, Color.FromRgb(0xFA, 0xDC, 0xCD) },
 				{ MemoryType.PceCardRam, Color.FromRgb(0xFA, 0xDC, 0xCD) },
+				{ MemoryType.PceExpansionRam, Color.FromRgb(0xFA, 0xDC, 0xCD) },
 				{ MemoryType.PcePrgRom, Color.FromRgb(0xC4, 0xE7, 0xD4) }
 			};
 
@@ -374,6 +375,7 @@ namespace Mesen.Debugger.ViewModels
 				{ MemoryType.PceSaveRam, Color.FromRgb(0xBD, 0xCC, 0xEA) },
 				{ MemoryType.PceCdromRam, Color.FromRgb(0xEA, 0xCC, 0xBD) },
 				{ MemoryType.PceCardRam, Color.FromRgb(0xEA, 0xCC, 0xBD) },
+				{ MemoryType.PceExpansionRam, Color.FromRgb(0xEA, 0xCC, 0xBD) },
 				{ MemoryType.PcePrgRom, Color.FromRgb(0xA4, 0xD7, 0xB4) }
 			};
 
@@ -383,6 +385,7 @@ namespace Mesen.Debugger.ViewModels
 				{ MemoryType.PceSaveRam, "RW" },
 				{ MemoryType.PceCdromRam, "RW" },
 				{ MemoryType.PceCardRam, "RW" },
+				{ MemoryType.PceExpansionRam, "RW" },
 				{ MemoryType.PcePrgRom, "R" },
 			};
 

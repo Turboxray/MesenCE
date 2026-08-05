@@ -168,6 +168,11 @@ public class PceasSymbolImporter : ISymbolProvider
 				Address = (bank - 0x80) * 0x2000 + (addr & 0x1FFF),
 				Type = MemoryType.PceCdromRam
 			};
+		} else if(bank >= 0x90 && bank <= 0xEF && DebugApi.GetMemorySize(MemoryType.PceExpansionRam) > 0) {
+			return new AddressInfo() {
+				Address = (bank - 0x90) * 0x2000 + (addr & 0x1FFF),
+				Type = MemoryType.PceExpansionRam
+			};
 		} else if(bank > 0xFF) {
 			return new AddressInfo() {
 				Address = (bank - 0x80) * 0x2000 + (addr & 0x1FFF),
