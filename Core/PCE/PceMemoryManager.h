@@ -50,6 +50,11 @@ private:
 	uint32_t _cardRamStartBank = 0;
 	uint32_t _cardRamEndBank = 0;
 
+	//Optional homebrew/dev expansion RAM mapped at banks $90-$EF (768KB) -
+	//this range is unmapped on all stock hardware configurations
+	uint8_t* _expansionRam = nullptr;
+	uint32_t _expansionRamSize = 0;
+
 	uint8_t* _unmappedBank = nullptr;
 	uint8_t* _saveRam = nullptr;
 	uint8_t* _cdromRam = nullptr;

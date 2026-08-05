@@ -55,6 +55,14 @@ PceMemoryManager::PceMemoryManager(Emulator* emu, PceConsole* console, PceVpc* v
 		_emu->RegisterMemory(MemoryType::PceCardRam, _cardRam, _cardRamSize);
 	}
 
+	if(_emu->GetSettings()->GetPcEngineConfig().EnableExpansionRam) {
+		//96 banks ($90-$EF) x 8KB = 768KB of expansion RAM; the range is
+		//unmapped on all stock hardware, so this models a homebrew RAM card
+		_expansionRamSize = 0x60 * 0x2000;
+		_expansionRam = new uint8_t[_expansionRamSize];
+		_console->InitializeRam(_expansionRam, _expansionRamSize);
+	}
+
 	_emu->RegisterMemory(MemoryType::PcePrgRom, _prgRom, _prgRomSize);
 	_emu->RegisterMemory(MemoryType::PceWorkRam, _workRam, _workRamSize);
 
@@ -107,6 +115,7 @@ PceMemoryManager::~PceMemoryManager()
 	delete[] _prgRom;
 	delete[] _workRam;
 	delete[] _cardRam;
+	delete[] _expansionRam;
 	delete[] _unmappedBank;
 }
 
@@ -145,6 +154,17 @@ void PceMemoryManager::UpdateMappings(uint32_t bankOffsets[8])
 			_readBanks[i] = _cardRam + (((i - _cardRamStartBank) * 0x2000) % _cardRamSize);
 			_writeBanks[i] = _cardRam + (((i - _cardRamStartBank) * 0x2000) % _cardRamSize);
 			_bankMemType[i] = MemoryType::PceCardRam;
+		}
+	}
+
+	if(_expansionRam) {
+		for(int i = 0x90; i <= 0xEF; i++) {
+			//90-EF: optional expansion RAM (unmapped on stock hardware).
+			//MemoryType::None keeps the debugger's absolute-address mapping
+			//honest until the region gets a dedicated memory type.
+			_readBanks[i] = _expansionRam + ((i - 0x90) * 0x2000);
+			_writeBanks[i] = _expansionRam + ((i - 0x90) * 0x2000);
+			_bankMemType[i] = MemoryType::None;
 		}
 	}
 
@@ -430,6 +450,7 @@ void PceMemoryManager::Serialize(Serializer& s)
 {
 	SVArray(_workRam, _workRamSize);
 	SVArray(_cardRam, _cardRamSize);
+	SVArray(_expansionRam, _expansionRamSize);
 
 	SV(_state.ActiveIrqs);
 	SV(_state.CycleCount);

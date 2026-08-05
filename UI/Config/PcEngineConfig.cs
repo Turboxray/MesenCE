@@ -31,6 +31,7 @@ namespace Mesen.Config
 		[ObservableProperty] public partial PceCdRomType CdRomType { get; set; } = PceCdRomType.Arcade;
 		[ObservableProperty] public partial bool EnableCdRomForHuCardGames { get; set; } = false;
 		[ObservableProperty] public partial bool DisableCdRomSaveRamForHuCardGames { get; set; } = false;
+		[ObservableProperty] public partial bool EnableExpansionRam { get; set; } = false;
 
 		[ObservableProperty] public partial RamState RamPowerOnState { get; set; } = RamState.Random;
 		[ObservableProperty] public partial bool EnableRandomPowerOnState { get; set; } = false;
@@ -101,6 +102,8 @@ namespace Mesen.Config
 				Overscan = Overscan.ToInterop(),
 
 				Palette = Palette,
+
+				EnableExpansionRam = EnableExpansionRam,
 			});
 		}
 
@@ -154,6 +157,8 @@ namespace Mesen.Config
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
 		public UInt32[] Palette;
+
+		[MarshalAs(UnmanagedType.I1)] public bool EnableExpansionRam;
 	}
 
 	public enum PceConsoleType
