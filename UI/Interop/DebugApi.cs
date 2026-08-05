@@ -655,6 +655,7 @@ namespace Mesen.Interop
 		PceCardRam,
 		PceAdpcmRam,
 		PceArcadeCardRam,
+		PceExpansionRam,
 		PceVideoRam,
 		PceVideoRamVdc2,
 		PceSpriteRam,

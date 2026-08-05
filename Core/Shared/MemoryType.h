@@ -71,6 +71,7 @@ enum class MemoryType
 	PceCardRam,
 	PceAdpcmRam,
 	PceArcadeCardRam,
+	PceExpansionRam,
 	PceVideoRam,
 	PceVideoRamVdc2,
 	PceSpriteRam,

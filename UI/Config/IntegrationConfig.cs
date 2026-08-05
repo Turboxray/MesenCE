@@ -93,6 +93,7 @@ namespace Mesen.Config
 				case MemoryType.PceCardRam:
 				case MemoryType.PceAdpcmRam:
 				case MemoryType.PceArcadeCardRam:
+				case MemoryType.PceExpansionRam:
 				case MemoryType.SpcRam:
 				case MemoryType.DspDataRam:
 				case MemoryType.Sa1InternalRam:

@@ -551,6 +551,8 @@ struct PcEngineConfig
 	OverscanDimensions Overscan = {};
 
 	uint32_t Palette[512] = {};
+
+	bool EnableExpansionRam = false;
 };
 
 enum class DspInterpolationType

@@ -209,7 +209,7 @@ void PceDebugger::ProcessWrite(uint32_t addr, uint8_t value, MemoryOperationType
 	MemoryOperationInfo operation(addr, value, type, MemoryType::PceMemory);
 	InstructionProgress.LastMemOperation = operation;
 
-	if(addressInfo.Address >= 0 && (addressInfo.Type == MemoryType::PceWorkRam || addressInfo.Type == MemoryType::PceCardRam || addressInfo.Type == MemoryType::PceCdromRam)) {
+	if(addressInfo.Address >= 0 && (addressInfo.Type == MemoryType::PceWorkRam || addressInfo.Type == MemoryType::PceCardRam || addressInfo.Type == MemoryType::PceCdromRam || addressInfo.Type == MemoryType::PceExpansionRam)) {
 		_disassembler->InvalidateCache(addressInfo, CpuType::Pce);
 	}
 

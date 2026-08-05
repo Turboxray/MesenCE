@@ -82,6 +82,7 @@
 						<c:CheckBoxWarning IsChecked="{Binding Config.EnableCdRomForHuCardGames}" Text="{l:Translate chkEnableCdRomForHuCardGames}" />
 						<c:CheckBoxWarning IsChecked="{Binding Config.DisableCdRomSaveRamForHuCardGames}" Text="{l:Translate chkDisableCdRomSaveRamForHuCardGames}" IsVisible="{Binding !Config.EnableCdRomForHuCardGames}" />
 						<c:CheckBoxWarning IsChecked="False" Text="{l:Translate chkDisableCdRomSaveRamForHuCardGames}" IsEnabled="False" IsVisible="{Binding Config.EnableCdRomForHuCardGames}" />
+						<c:CheckBoxWarning IsChecked="{Binding Config.EnableExpansionRam}" Text="{l:Translate chkEnableExpansionRam}" />
 					</c:OptionSection>
 				</StackPanel>
 			</ScrollViewer>
